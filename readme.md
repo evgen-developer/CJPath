@@ -30,28 +30,26 @@ The set of unit tests is stored in the file main.c. Test frameworks are not used
 # Usage example
 
 ``` C
-	CJPathStatus status;
+CJPathStatus status;
+CJPathList* result;
+CJPathList* item;
 
-	CJPathList* result;
-	CJPathList* item;
+result = NULL;
 
-	result = NULL;
+static const char* json = "{\"id\":[0,1,2,3]}";
+static const char* jsonPath = "$.id[0,2]";
 
-    static const char* json = "{\"id\":[0,1,2,3]}";
-    static const char* jsonPath = "$.id[0,2]";
-
-	status = CJPathProcessing(json, strlen(json), jsonPath, strlen(jsonPath), &result, &malloc, &free);
-	if (status == SUCCESS)
-	{
-        for (item = result; item != NULL; item = item->next)
-        {
-            //
-            // Processing item
-            //
-        }
-
-        CJPathFreeList(&result, &free);
-	}
+status = CJPathProcessing(json, strlen(json), jsonPath, strlen(jsonPath), &result, &malloc, &free);
+if (status == SUCCESS)
+{
+    for (item = result; item != NULL; item = item->next)
+    {
+        //
+        // Processing item
+        //
+    }
+    CJPathFreeList(&result, &free);
+}
 ```
 
 # Doxygen documentation
